@@ -10,7 +10,7 @@ using Mysqlx.Crud;
 
 namespace ORM_Dapper
 {
-    public class DapperProductsRepository
+    public class DapperProductsRepository: IProductsRepository
     {
         private readonly IDbConnection _connection;
         //Constructor
@@ -27,7 +27,7 @@ namespace ORM_Dapper
             _connection.Execute("INSERT INTO PRODUCTS (Name) VALUES (@productsName);",
              new { productsName = newProductsName });
         }
-        public void DeleteProduct(string productsName)
+        public void DeleteProduct(string productsName) //Deleting product from database by deleting productid from Products, Sales, and Reviews tables
         {
             _connection.Execute(@"BEGIN TRANSACTION;
             DELETE FROM Products WHERE ProductID = @ProductID;

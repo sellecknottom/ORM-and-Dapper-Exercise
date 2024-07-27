@@ -14,7 +14,9 @@ namespace ORM_Dapper
                 .AddJsonFile("appsettings.json")
                 .Build();
             string connString = config.GetConnectionString("DefaultConnection");
+
             IDbConnection conn = new MySqlConnection(connString);
+    
             var repo = new DapperDepartmentRepository(conn);
 
             var productrepo = new DapperProductsRepository(conn);
@@ -30,15 +32,13 @@ namespace ORM_Dapper
                 Console.WriteLine(dep.Name);
             }
 
-            Console.WriteLine("Type a new Product name");
-            var newProduct = Console.ReadLine();
-
-            productrepo.InsertProducts(newProduct);
             var products = productrepo.GetAllProducts();
 
             foreach (var product in products)
             { 
-                Console.WriteLine(product.Name); 
+                Console.WriteLine(product.Name);
+                Console.WriteLine();
+                Console.WriteLine();
             }
         }
     }
